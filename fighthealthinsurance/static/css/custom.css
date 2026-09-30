@@ -3508,6 +3508,15 @@ textarea,
 .fhi-column-centred > .btn { align-self: center; }
 .fhi-stack-loose { gap: var(--fhi-space-6); }
 
+/* A marker, badge or abbreviation beside its text, centred on one line. */
+.fhi-media {
+    display: flex;
+    align-items: center;
+    gap: var(--fhi-space-4);
+}
+.fhi-media > *,
+.fhi-media > * > * { margin-block: 0; }
+
 /* A wrapping row, for buttons and links side by side. */
 .fhi-cluster {
     display: flex;
@@ -3531,12 +3540,13 @@ textarea,
 }
 
 /* Cards: as many to a row as fit at about 14rem each, so three short cards
-   share the reading column on a desktop and one takes a phone's width.
+   share the reading column on a desktop and one takes a phone's width. A
+   short run keeps the same card size and leaves the rest of the row empty.
    Cards that hold paragraphs are roomy: 20rem each, so two to a row there
    and the lines stay long enough to read. */
 .fhi-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--fhi-card-min, 14rem), 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--fhi-card-min, 14rem), 100%), 1fr));
     gap: var(--fhi-space-6);
 }
 .fhi-cards-roomy { --fhi-card-min: 20rem; }
@@ -3559,6 +3569,9 @@ textarea,
 /* A card's closing link or button sits at the foot, so a row of cards
    lines theirs up. */
 .fhi-card-action { margin-top: auto; align-self: flex-start; }
+/* A card whose title link covers the whole card, so the card is the target. */
+.fhi-card:has(.fhi-card-link) { position: relative; }
+.fhi-card-link::after { content: ""; position: absolute; inset: 0; }
 /* A coloured title bar across the top of a card. #087990 carries white
    at 5.06:1. */
 .fhi-card-banner {
@@ -3585,6 +3598,8 @@ textarea,
 }
 .fhi-list > * + * { border-top: 1px solid #d0d0d0; }
 .fhi-list > * > * { margin-block: 0; }
+/* A list item can itself be a media row: a badge beside its text. */
+.fhi-list > .fhi-media { flex-direction: row; }
 
 /* A list without bullets or indent. */
 .fhi-bare-list { padding-left: 0; list-style: none; }
@@ -3596,6 +3611,7 @@ textarea,
     border-radius: var(--fhi-radius);
 }
 .fhi-notice-warning { color: #664d03; background-color: #fff3cd; border-color: #ffecb5; }
+.fhi-notice-info { color: #333; background-color: #e7f0ff; border-color: #cfe2ff; }
 
 /* A light panel. */
 .fhi-panel {
@@ -3618,6 +3634,9 @@ textarea,
 .fhi-badge.fhi-badge-primary { background-color: #0b5ed7; }
 .fhi-badge.fhi-badge-danger { background-color: #bb2d3b; }
 .fhi-badge.fhi-badge-warning { background-color: #ffc107; color: #212529; }
+.fhi-badge.fhi-badge-info { background-color: #0dcaf0; color: #212529; }
+/* Long condition names wrap inside the card rather than running past it. */
+.fhi-badge { max-width: 100%; }
 
 /* Text roles: the line that introduces a section, a small aside, and the
    colour of a warning or information icon. */
